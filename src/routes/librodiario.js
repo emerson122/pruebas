@@ -27,7 +27,7 @@ router.get("/librodiario", ensureToken, (req, res) => {
       if (err) {
         res.sendStatus(403);
       } else {
-        const sql = `Call PRC_LIBDIARIO('?','?','?', '?', '?', 5, '');`;
+        const sql = `Call PRC_LIBDIARIO(0,'?','?', 0, 0, 5, '');`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
