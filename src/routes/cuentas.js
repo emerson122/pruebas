@@ -27,7 +27,7 @@ router.get("/cuentas", ensureToken,(req, res)=>{
           if (err) {
             res.sendStatus(403);
           } else {
-    const sql = `Call PRC_CUENTAS('?', '?', '?', 4,0);`
+    const sql = `Call PRC_CUENTAS(0, '?', '?', 4,0);`
     mysql.query(sql,(error,results)=>{
         if(error) throw error;
         if(results.length>0){
@@ -53,7 +53,7 @@ router.get("/cuentas/:cod",ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `CALL PRC_CUENTAS('?', '?', '?', 5, ${cod})`;
+        const sql = `CALL PRC_CUENTAS(0, '?', '?', 5, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -134,7 +134,7 @@ router.delete("/cuentas/eliminar/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `Call PRC_CUENTAS('?', '?', '?', 3,${cod});`;
+        const sql = `Call PRC_CUENTAS(0, '?', '?', 3,${cod});`;
         mysql.query(sql, (error,results) => {
           if (error) throw error;
           if (results.length>0) {
