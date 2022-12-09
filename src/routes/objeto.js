@@ -109,7 +109,7 @@ router.post("/objetos/insertar", ensureToken, (req, res) => {
           DES_OBJETO: req.body.DES_OBJETO,
           TIP_OBJETO: req.body.TIP_OBJETO,
         };
-        const sql = `CALL PRC_OBJETOS( '${objobjetos.OBJETO}','${objobjetos.DES_OBJETO}' , '${objobjetos.TIP_OBJETO}',  1, '?')`;
+        const sql = `CALL PRC_OBJETOS( '${objobjetos.OBJETO}','${objobjetos.DES_OBJETO}' , '${objobjetos.TIP_OBJETO}',  1, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos insertados");
