@@ -27,7 +27,7 @@ router.get("/librodiario", ensureToken, (req, res) => {
       if (err) {
         res.sendStatus(403);
       } else {
-        const sql = `Call PRC_LIBDIARIO(0,'?','?', 0, 0, 5, '');`;
+        const sql = `Call PRC_LIBDIARIO(0,'?','?', 0, 0, 5, 0);`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -51,7 +51,7 @@ router.get("/librodiario/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `CALL PRC_LIBDIARIO('?', '?', '?', '?', '?', 6, ${cod})`;
+        const sql = `CALL PRC_LIBDIARIO(0, '?', '?', 0, 0, 6, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -81,7 +81,7 @@ router.post("/librodiario/insertar", ensureToken, (req, res) => {
           SAL_DEBE: req.body.SAL_DEBE,
           SAL_HABER: req.body.SAL_HABER,
         };
-        const sql = `CALL PRC_LIBDIARIO(${objlibrodiario.COD_PERIODO},'${objlibrodiario.NOM_CUENTA}','${objlibrodiario.NOM_SUBCUENTA}',${objlibrodiario.SAL_DEBE},${objlibrodiario.SAL_HABER},1,'?')`;
+        const sql = `CALL PRC_LIBDIARIO(${objlibrodiario.COD_PERIODO},'${objlibrodiario.NOM_CUENTA}','${objlibrodiario.NOM_SUBCUENTA}',${objlibrodiario.SAL_DEBE},${objlibrodiario.SAL_HABER},1,0)`;
         mysql.query(sql, (error) => {
           if (error) throw error;
           res.send("Los datos se insertaron correctamente");
@@ -107,7 +107,7 @@ router.post("/librodiario/insertar_s_cuentas", ensureToken, (req, res) => {
           SAL_DEBE: req.body.SAL_DEBE,
           SAL_HABER: req.body.SAL_HABER,
         };
-        const sql = `CALL PRC_LIBDIARIO(${objlibrodiario.COD_PERIODO},'${objlibrodiario.NOM_CUENTA}','',${objlibrodiario.SAL_DEBE},${objlibrodiario.SAL_HABER},2,'?')`;
+        const sql = `CALL PRC_LIBDIARIO(${objlibrodiario.COD_PERIODO},'${objlibrodiario.NOM_CUENTA}','',${objlibrodiario.SAL_DEBE},${objlibrodiario.SAL_HABER},2,0)`;
         mysql.query(sql, (error) => {
           if (error) throw error;
           res.send("Los datos se insertaron correctamente");
@@ -135,7 +135,7 @@ router.put("/librodiario/actualizar/:cod", ensureToken, (req, res) => {
           SAL_DEBE: req.body.SAL_DEBE,
           SAL_HABER: req.body.SAL_HABER,
         };
-        const sql = `CALL UPD_LIBDIARIO(${objlibrodiario.COD_PERIODO},'${objlibrodiario.NOM_CUENTA}','${objlibrodiario.NOM_SUBCUENTA}',${objlibrodiario.SAL_DEBE},${objlibrodiario.SAL_HABER},'?',${cod})`;
+        const sql = `CALL UPD_LIBDIARIO(${objlibrodiario.COD_PERIODO},'${objlibrodiario.NOM_CUENTA}','${objlibrodiario.NOM_SUBCUENTA}',${objlibrodiario.SAL_DEBE},${objlibrodiario.SAL_HABER},now(),${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length>0) {
