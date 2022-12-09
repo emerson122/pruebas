@@ -32,7 +32,7 @@ router.post("/comprobantes/insertar", ensureToken,(req, res) => {
                 PV_NOMBRECOMPROBANTE: req.body.NOMBRE
             }
   
-          const sql = `call PRC_COMPROBANTES('', '${objcomprobante.PV_NOMBRECOMPROBANTE}', '1', '')`;
+          const sql = `call PRC_COMPROBANTES(0, '${objcomprobante.PV_NOMBRECOMPROBANTE}', '1', 0)`;
           mysql.query(sql, (error, results) => {
             if (error) throw error;
             res.send("Datos insertados");
