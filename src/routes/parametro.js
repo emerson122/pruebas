@@ -27,7 +27,7 @@ router.get('/parametros',ensureToken,(req,res)=>{
           if (err) {
             res.sendStatus(403);
           } else {
-            const sql = `CALL PRC_MS_PARAMETROS('', '', '', '', 4, '')`;
+            const sql = `CALL PRC_MS_PARAMETROS('', '', '', NOW(), 4, 0)`;
             mysql.query(sql,(error,results)=>{
                 if(error) throw error;
                 if (results.length>0) {
@@ -53,7 +53,7 @@ router.get("/parametros/:cod", ensureToken,(req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `CALL PRC_MS_PARAMETROS('', '', '','', 5, ${cod})`;
+        const sql = `CALL PRC_MS_PARAMETROS('', '', '',now(), 5, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -114,7 +114,7 @@ router.post('/parametros/insertar',ensureToken,(req,res)=>{
         USR: req.body.USR,
         FEC_MODIFICACION: req.body.FEC_MODIFICACION
     }
-    const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','${objparametros.VALOR}' ,'${objparametros.USR}', now(), 1, '?')`;
+    const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','${objparametros.VALOR}' ,'${objparametros.USR}', now(), 1, 0)`;
     mysql.query(sql,(error,results)=>{
         if(error) throw error;
         res.send("Datos insertados")
