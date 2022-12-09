@@ -53,7 +53,7 @@ router.get("/libromayor/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `CALL PRC_LIBROS_MAYORES('?', '?', '?', '?', 5, ${cod})`;
+        const sql = `CALL PRC_LIBROS_MAYORES(0, '?', 0, 0, 5, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -83,7 +83,7 @@ router.post("/libromayor/insertar", ensureToken, (req, res) => {
           SAL_DEBE: req.body.SAL_DEBE,
           SAL_HABER: req.body.SAL_HABER,
         };
-        const sql = `CALL PRC_LIBROS_MAYORES(${objlibromayor.COD_PERIODO} ,'${objlibromayor.NOM_CUENTA}',${objlibromayor.SAL_DEBE},${objlibromayor.SAL_HABER}, 6, '?')`;
+        const sql = `CALL PRC_LIBROS_MAYORES(${objlibromayor.COD_PERIODO} ,'${objlibromayor.NOM_CUENTA}',${objlibromayor.SAL_DEBE},${objlibromayor.SAL_HABER}, 6, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos insertados");
@@ -110,7 +110,7 @@ router.post("/libromayor/mayorizacion", ensureToken, (req, res) => {
           NOM_CUENTA: req.body.NOM_CUENTA,
 
         };
-        const sql = `CALL PRC_LIBROS_MAYORES(${objlibromayor.COD_PERIODO} ,'${objlibromayor.NOM_CUENTA}','','', 1, '?')`;
+        const sql = `CALL PRC_LIBROS_MAYORES(${objlibromayor.COD_PERIODO} ,'${objlibromayor.NOM_CUENTA}',0,0, 1, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos Mayorizados");
@@ -158,7 +158,7 @@ router.delete("/libromayor/eliminar/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `CALL PRC_LIBROS_MAYORES('?', '?', '?', '?', 3, ${cod})`;
+        const sql = `CALL PRC_LIBROS_MAYORES(0, '?', 0, 0, 3, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos Eliminados");
