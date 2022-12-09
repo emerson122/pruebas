@@ -96,8 +96,6 @@ router.post("/libromayor/insertar", ensureToken, (req, res) => {
   }
 });
 
-
-
 // MAYORIZACION // FUNCIONAL ?
 router.post("/libromayor/mayorizacion", ensureToken, (req, res) => {
   try {
