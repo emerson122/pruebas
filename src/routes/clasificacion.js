@@ -28,7 +28,7 @@ router.get("/clasificacion", ensureToken, (req, res) => {
       if (err) {
         res.sendStatus(403);
       } else {
-        const sql = `CALL PRC_CLASIFICACIONES( '', 4, '')`;
+        const sql = `CALL PRC_CLASIFICACIONES( '', 4, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -140,7 +140,7 @@ router.post("/clasificacion/insertar", ensureToken, (req, res) => {
         const objclasificacion = {
           NATURALEZA: req.body.NATURALEZA
         };
-        const sql = `CALL PRC_CLASIFICACIONES('${objclasificacion.NATURALEZA}', 1, '?')`;
+        const sql = `CALL PRC_CLASIFICACIONES('${objclasificacion.NATURALEZA}', 1, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos insertados");
