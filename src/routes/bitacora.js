@@ -97,7 +97,7 @@ router.post("/bitacora/user", ensureToken, (req, res) => {
 });
 
 // SELECCIONAR TODO BITACORA
-router.get(["/sel_bitacora"], ensureToken, (req, res) => {
+router.get("/sel_bitacora", ensureToken, (req, res) => {
   try {
     jwt.verify(req.token, process.env.JWT, (err, data) => {
       if (err) {
