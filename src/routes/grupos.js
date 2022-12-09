@@ -22,13 +22,13 @@ function ensureToken(req, res, next) {
 
 
 // leer FUNCIONAL
-router.get(["/grupos"], ensureToken,(req, res)=>{
+router.get("/grupos", ensureToken,(req, res)=>{
     try {
         jwt.verify(req.token, process.env.JWT, (err, data) => {
           if (err) {
             res.sendStatus(403);
           } else {
-    const sql = `CALL PRC_GRUPOS('', '', '', 4, '')`
+    const sql = `CALL PRC_GRUPOS('', '', '', 4, 0)`
     mysql.query(sql,(error,results)=>{
         if(error) throw error;
         if(results.length>0){
@@ -84,7 +84,7 @@ router.post("/grupos/insertar", ensureToken, (req, res) => {
           PV_NUM_GRUPO: req.body.PV_NUM_GRUPO,
           PV_NOM_GRUPO: req.body.PV_NOM_GRUPO,
         };
-        const sql = `CALL PRC_GRUPOS('${objgrupo.PV_CLASIFICACION}', '${objgrupo.PV_NUM_GRUPO}', '${objgrupo.PV_NOM_GRUPO}', 1, '')`;
+        const sql = `CALL PRC_GRUPOS('${objgrupo.PV_CLASIFICACION}', '${objgrupo.PV_NUM_GRUPO}', '${objgrupo.PV_NOM_GRUPO}', 1, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length>0) {
