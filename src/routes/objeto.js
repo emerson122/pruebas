@@ -79,7 +79,7 @@ router.post("/objetos/buscar", ensureToken, (req, res) => {
         const objobjetos = {
           OBJETO: req.body.OBJETO
         };
-        const sql = `CALL PRC_OBJETOS( '${objobjetos.OBJETO}','' , '',  6, '?')`;
+        const sql = `CALL PRC_OBJETOS( '${objobjetos.OBJETO}','' , '',  6, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if(results.length>0){
