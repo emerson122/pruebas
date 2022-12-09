@@ -19,13 +19,13 @@ function ensureToken(req, res, next) {
 }
 
 // leer FUNCIONAL
-router.get(["/subcuentas"], ensureToken, (req, res) => {
+router.get("/subcuentas", ensureToken, (req, res) => {
   try {
     jwt.verify(req.token, process.env.JWT, (err, data) => {
       if (err) {
         res.sendStatus(403);
       } else {
-        const sql = `CALL PRC_SUBCUENTAS('', '', '', 4,'' );`;
+        const sql = `CALL PRC_SUBCUENTAS('', '', '', 4,0 );`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -82,7 +82,7 @@ router.post("/subcuentas/insertar", ensureToken, (req, res) => {
           CORRELATIVO: req.body.GRUPO,
         };
 
-        const sql = `CALL PRC_SUBCUENTAS('${objsubcuentas.NUM_SUBCUENTA}', '${objsubcuentas.NOM_SUBCUENTA}', '${objsubcuentas.NOM_CUENTA}', 1,'' );`;
+        const sql = `CALL PRC_SUBCUENTAS('${objsubcuentas.NUM_SUBCUENTA}', '${objsubcuentas.NOM_SUBCUENTA}', '${objsubcuentas.NOM_CUENTA}', 1,0);`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
