@@ -26,7 +26,7 @@ router.get("/", ensureToken, (req, res) => {
       if (err) {
         res.sendStatus(403);
       } else {
-        const sql = `Call PRC_PERSONAS('', '', '', '', '', '', '', '', 4, '')`;
+        const sql = `Call PRC_PERSONAS('', '', 0, '', '', '', '', '', 4, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -50,7 +50,7 @@ router.get("/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `Call PRC_PERSONAS('', '', '', '', '', '', '', '', 5, ${cod});`;
+        const sql = `Call PRC_PERSONAS('', '', 0, '', '', '', '', '', 5, ${cod});`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -101,7 +101,7 @@ router.get("/buscar/list_usuarios", ensureToken,(req, res) => {
         res.sendStatus(403);
       } else {
        
-        const sql = `call PRC_PERSONAS('', '', '', '', '', '', '', '', '7', '');`;
+        const sql = `call PRC_PERSONAS('', '', 0, '', '', '', '', '', '7', 0);`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -135,7 +135,7 @@ router.post("/insertar", ensureToken, (req, res) => {
           TELEFONO: req.body.TELEFONO,
           TIP_TELEFONO: req.body.TIP_TELEFONO,
         };
-        const sql = `CALL PRC_PERSONAS('${objpersonas.USUARIO}','${objpersonas.SEX_PERSONA}',${objpersonas.EDA_PERSONAL} , '${objpersonas.TIP_PERSONA}', '${objpersonas.Num_Identidad}','${objpersonas.IND_CIVIL}','${objpersonas.TELEFONO}','${objpersonas.TIP_TELEFONO}',1, '?')`;
+        const sql = `CALL PRC_PERSONAS('${objpersonas.USUARIO}','${objpersonas.SEX_PERSONA}',${objpersonas.EDA_PERSONAL} , '${objpersonas.TIP_PERSONA}', '${objpersonas.Num_Identidad}','${objpersonas.IND_CIVIL}','${objpersonas.TELEFONO}','${objpersonas.TIP_TELEFONO}',1, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos insertados");
@@ -188,7 +188,7 @@ router.put("/delete/:cod", ensureToken, (req, res) => {
       } else {
         const { cod } = req.params;
      
-        const sql = `CALL PRC_PERSONAS('','','', '', '','','','',8, ${cod})`;
+        const sql = `CALL PRC_PERSONAS('','',0, '', '','','','',8, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Desactivado Logico ");
@@ -210,7 +210,7 @@ router.delete("/eliminar/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `Call PRC_PERSONAS('', '', '', '', '', '', '', '', 3, ${cod})`;
+        const sql = `Call PRC_PERSONAS('', '', 0, '', '', '', '', '', 3, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos Eliminados");
