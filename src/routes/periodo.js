@@ -26,7 +26,7 @@ router.get("/periodo", ensureToken, (req, res) => {
       if (err) {
         res.sendStatus(403);
       } else {
-        const sql = `CALL PRC_PERIODOS('', '', '', '', '', 4, '')`;
+        const sql = `CALL PRC_PERIODOS('', '', now(), now(), '', 4, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -49,7 +49,7 @@ router.get("/incrementable", ensureToken, (req, res) => {
       if (err) {
         res.sendStatus(403);
       } else {
-        const sql = `CALL PRC_PERIODOS('', '', '', '', '', 6, '')`;
+        const sql = `CALL PRC_PERIODOS('', '', now(), now(), '', 6, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -73,7 +73,7 @@ router.get("/periodo/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `CALL PRC_PERIODOS('', '', '', '', '', 5, ${cod})`;
+        const sql = `CALL PRC_PERIODOS('', '', now(), now(), '', 5, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
@@ -103,7 +103,7 @@ router.post("/periodo/insertar", ensureToken, (req, res) => {
           FEC_FIN: req.body.FEC_FIN,
           ESTADO: req.body.ESTADO,
         };
-        const sql = `CALL PRC_PERIODOS('${objperiodos.USR}', '${objperiodos.NOM_PERIODO}','${objperiodos.FEC_INI} ', '${objperiodos.FEC_FIN}', '${objperiodos.ESTADO}', 1, '?')`;
+        const sql = `CALL PRC_PERIODOS('${objperiodos.USR}', '${objperiodos.NOM_PERIODO}','${objperiodos.FEC_INI} ', '${objperiodos.FEC_FIN}', '${objperiodos.ESTADO}', 1, 0)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos insertados");
@@ -153,7 +153,7 @@ router.delete("/periodo/eliminar/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `CALL PRC_PERIODOS('', '', '', '', '', 3, ${cod})`;
+        const sql = `CALL PRC_PERIODOS('', '', now(), now(), '', 3, ${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos Eliminados");
