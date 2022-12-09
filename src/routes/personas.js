@@ -76,7 +76,7 @@ router.post("/usuarios", ensureToken,(req, res) => {
         const objuserper = {
           USUARIO: req.body.USER,
         };
-        const sql = `Call PRC_PERSONAS('${objuserper.USUARIO}', '', '', '', '', '', '', '', 6, '');`;
+        const sql = `Call PRC_PERSONAS('${objuserper.USUARIO}', '', 0, '', '', '', '', '', 6, 0);`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {
