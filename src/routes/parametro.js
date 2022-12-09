@@ -81,7 +81,7 @@ router.post('/parametros/buscar',ensureToken,(req,res)=>{
     const objparametros = { 
         PARAMETRO: req.body.PARAMETRO,
     }
-    const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','' , '', '', 6, '?')`;
+    const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','' , '', now(), 6, 1)`;
     mysql.query(sql,(error,results)=>{
         if(error) throw error;
         if (results.length > 0) {

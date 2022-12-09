@@ -116,7 +116,7 @@ router.post('/parametros/intentos',(req,res)=>{
   const objparametros = { 
       PARAMETRO: "ADMIN_INTENTOS_INVALIDOS"
   }
-  const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','' , '', '', 6, '?')`;
+  const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','' , '', now(), 6, 1)`;
   mysql.query(sql,(error,results)=>{
       if(error) throw error;
       if (results.length > 0) {
@@ -138,7 +138,7 @@ router.post('/parametros/cant_preg',(req,res)=>{
   const objparametros = { 
       PARAMETRO: "ADMIN_PREGUNTAS"
   }
-  const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','' , '', '', 6, '?')`;
+  const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','' , '', now(), 6, 1)`;
   mysql.query(sql,(error,results)=>{
       if(error) throw error;
       if (results.length > 0) {
@@ -161,7 +161,7 @@ router.post('/parametros/correo_time',(req,res)=>{
   const objparametros = { 
       PARAMETRO: "ADMIN_VIG_RECUPERACION"
   }
-  const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','' , '', '', 6, '?')`;
+  const sql = `CALL PRC_MS_PARAMETROS( '${objparametros.PARAMETRO}','' , '', now(), 6, 1)`;
   mysql.query(sql,(error,results)=>{
       if(error) throw error;
       if (results.length > 0) {
@@ -232,7 +232,7 @@ router.post("/objetos/login", (req, res) => {
         const objobjetos = {
           OBJETO: 'LOGIN'
         };
-        const sql = `CALL PRC_OBJETOS( '${objobjetos.OBJETO}','' , '',  6, '?')`;
+        const sql = `CALL PRC_OBJETOS( '${objobjetos.OBJETO}','' , '',  6, 1)`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           if(results.length>0){
