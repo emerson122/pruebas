@@ -21,13 +21,13 @@ function ensureToken(req, res, next) {
 
 
 // leer FUNCIONAL
-router.get(["/cuentas"], ensureToken,(req, res)=>{
+router.get("/cuentas", ensureToken,(req, res)=>{
     try {
         jwt.verify(req.token, process.env.JWT, (err, data) => {
           if (err) {
             res.sendStatus(403);
           } else {
-    const sql = `Call PRC_CUENTAS('?', '?', '?', 4,'');`
+    const sql = `Call PRC_CUENTAS('?', '?', '?', 4,0);`
     mysql.query(sql,(error,results)=>{
         if(error) throw error;
         if(results.length>0){
