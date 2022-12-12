@@ -52,6 +52,36 @@ router.get(["/sel_usr"],ensureToken, (req, res) => {
   }
 });
 
+
+// NUEVOS USUARIOS 
+
+///////////////////////////////////////////////////////////////////
+
+router.get(["/sel_newusr"],ensureToken, (req, res) => {
+  try {
+    jwt.verify(req.token,process.env.JWT, (err, data) => {
+      if (err) {
+        res.sendStatus(403);
+        console.log(err);
+      } else {
+    const sql = `CALL SEL_COUNTNEW_USR()`;
+    mysql.query(sql, (error, results) => {
+      if (error) throw error;
+      if (results.length > 0) {
+        res.json(results[0]);
+      } else {
+        res.send("No se pudo obtener resultados"); 
+      }
+      
+    });
+  }
+});
+    console.log("Datos leidos correctamente");
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 // INSERTAR
 
 ///////////////////////////////////////////////////////////////////
