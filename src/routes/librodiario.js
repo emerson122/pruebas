@@ -163,7 +163,7 @@ router.delete("/librodiario/eliminar/:cod", ensureToken, (req, res) => {
         res.sendStatus(403);
       } else {
         const { cod } = req.params;
-        const sql = `CALL DEL_LIBDIARIO( ${cod})`;
+        const sql = `CALL DEL_LIBDIARIO(${cod})`;
         mysql.query(sql, (error, results) => {
           if (error) throw error;
           res.send("Datos Eliminados");
